@@ -1,0 +1,85 @@
+Sec_1 
+question 1:
+
+(deftemplate animal (slot type))
+(defrule check_animal
+  (animal (type ?type))
+  (test (neq ?type dog))
+  =>
+  (printout t ?type " is not a dog" crlf))
+
+question 2:
+
+(defrule pos_int
+  (number ?n)
+  (test (and (integerp ?n) (> ?n 0)))
+  =>
+  (printout t "The number is a positive integer" crlf))
+
+________________________________________________________
+Sec_2 
+question 1:
+
+(defrule check_animal
+   (animal (type ?type))
+   (test (or (eq ?type duck) (eq ?type turtle)))
+   =>
+   (printout t ?type " is a duck or turtle" crlf))
+
+
+question 2: 
+
+(deftemplate rect (slot height) (slot width) )
+(defrule perimeter
+   (rect (height ?h) (width ?w))
+   =>
+   (printout t "Perimeter is: " (* 2 (+ ?h ?w)) crlf)
+)
+(assert (rect (height 5) (width 10)))
+(run)
+Perimeter is: 30
+
+____________________________________________________________
+Sec_3
+question 1:
+
+(defrule check_animal
+   (animal ?name&~dog&~cat)
+   =>
+   (printout t ?name " is not a dog or cat" crlf)
+)
+
+question 2: 
+
+(defrule Odd_number
+   (number ?n&:(neq (mod ?n 2) 0))
+   =>
+   (printout t "The number is odd" crlf)
+)
+
+_____________________________________________________________
+Sec_4
+question 1:
+
+(defrule check_color
+   (hair_color ?color&~black&~brown)
+   =>
+   (printout t "color is: " ?color crlf)
+)
+
+
+question 2:
+
+(deftemplate person
+   (multislot name
+      (type SYMBOL STRING)
+      (cardinality 2 4)
+   )
+   
+   (slot age
+      (type INTEGER)
+      (range 20 25)
+   )
+)
+
+
